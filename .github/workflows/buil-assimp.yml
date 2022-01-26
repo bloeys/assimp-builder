@@ -14,7 +14,7 @@ jobs:
       - name: Build AssImp
         working-directory: ./assimp
         run: cmake --build . --parallel 6
-      - name: Upload libraries to GitHub Action Artifacts
+      - name: Upload libraries to GitHub Actions Artifacts
         uses: actions/upload-artifact@v2
         with: 
           name: assimp-libs-macos-x64
