@@ -3,13 +3,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  say-hello:
+  Build-AssImp-MacOS:
     runs-on: macos-latest
     steps:
-      - name: Test cmake
-        run: cmake --version
-      - name: Test clang
-        run: clang -v
-      - name: Clone AssImp v5.1.6
-        run: git clone -b v5.1.6 https://github.com/assimp/assimp
-
+      - name: Clone AssImp v5.1.6 and cd assimp
+        run: git clone -b v5.1.6 https://github.com/assimp/assimp && cd assimp
+      - name: CMake AssImp
+        run: cmake CMakeLists.txt -D ASSIMP_BUILD_ZLIB=OFF -D ASSIMP_BUILD_ASSIMP_TOOLS=OFF
+      - name: Build AssImp
+        run: cmake --build . --parallel 6
+      - name: View built
+        run: ls -al ./bin
