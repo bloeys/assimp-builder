@@ -1,4 +1,4 @@
-name: hello-world-example
+name: Build-AssImp
 on:
   workflow_dispatch:
 
@@ -14,6 +14,8 @@ jobs:
       - name: Build AssImp
         working-directory: ./assimp
         run: cmake --build . --parallel 6
-      - name: View built
-        working-directory: ./assimp
-        run: ls -al ./bin
+      - name: Upload libraries to GitHub Action Artifacts
+        uses: actions/upload-artifact@v2
+        with: 
+          name: assimp-libs-macos-x64
+          path: downloads
