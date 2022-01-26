@@ -6,5 +6,10 @@ jobs:
   say-hello:
     runs-on: macos-latest
     steps:
-      - name: Test git
-        run: git --version
+      - name: Test cmake
+        run: cmake --version
+      - name: Test clang
+        run: clang -v
+      - name: Clone AssImp v5.1.6
+        run: git clone -b v5.1.6 https://github.com/assimp/assimp
+
