@@ -3,41 +3,42 @@ on:
   workflow_dispatch:
 
 jobs:
-  Build-AssImp-Windows:
-    runs-on: windows-latest
-    steps:
-      - name: Set up Cygwin
-        uses: egor-tensin/setup-cygwin@v3
-        with:
-          platform: x64
-          packages: cmake git
+  #Note: This fails currently with: 'CMake Error: Could not create named generator MinGW Makefiles'
+  # Build-AssImp-Windows:
+  #   runs-on: windows-latest
+  #   steps:
+  #     - name: Set up Cygwin
+  #       uses: egor-tensin/setup-cygwin@v3
+  #       with:
+  #         platform: x64
+  #         packages: cmake git
 
-      - name: Set up MinGW
-        uses: egor-tensin/setup-mingw@v2
-        with:
-          platform: x64
+  #     - name: Set up MinGW
+  #       uses: egor-tensin/setup-mingw@v2
+  #       with:
+  #         platform: x64
 
-      - name: Clone AssImp v5.1.6
-        shell: C:\tools\cygwin\bin\bash.exe --login -o igncr '{0}'
-        run: git clone -b v5.1.6 https://github.com/assimp/assimp
+  #     - name: Clone AssImp v5.1.6
+  #       shell: C:\tools\cygwin\bin\bash.exe --login -o igncr '{0}'
+  #       run: git clone -b v5.1.6 https://github.com/assimp/assimp
   
-      - name: CMake AssImp
-        shell: C:\tools\cygwin\bin\bash.exe --login -o igncr '{0}'
-        run: cd assimp && cmake CMakeLists.txt -D ASSIMP_BUILD_ZLIB=OFF -D ASSIMP_BUILD_ASSIMP_TOOLS=OFF -G "MinGW Makefiles"
+  #     - name: CMake AssImp
+  #       shell: C:\tools\cygwin\bin\bash.exe --login -o igncr '{0}'
+  #       run: cd assimp && cmake CMakeLists.txt -D ASSIMP_BUILD_ZLIB=OFF -D ASSIMP_BUILD_ASSIMP_TOOLS=OFF -G "MinGW Makefiles"
   
-      - name: Build AssImp
-        shell: C:\tools\cygwin\bin\bash.exe --login -o igncr '{0}'
-        run: cd assimp && cmake --build . --parallel 2
+  #     - name: Build AssImp
+  #       shell: C:\tools\cygwin\bin\bash.exe --login -o igncr '{0}'
+  #       run: cd assimp && cmake --build . --parallel 2
   
-      - name: Copy artifcats
-        shell: C:\tools\cygwin\bin\bash.exe --login -o igncr '{0}'
-        run: mkdir artifcats && cp -r ./assimp/bin artifcats/bin && cp -r ./assimp/lib artifcats/lib
+  #     - name: Copy artifcats
+  #       shell: C:\tools\cygwin\bin\bash.exe --login -o igncr '{0}'
+  #       run: mkdir artifcats && cp -r ./assimp/bin artifcats/bin && cp -r ./assimp/lib artifcats/lib
 
-      - name: Upload libraries to GitHub Actions Artifacts
-        uses: actions/upload-artifact@v2
-        with: 
-          name: assimp-libs-windows-x64
-          path: artifcats
+  #     - name: Upload libraries to GitHub Actions Artifacts
+  #       uses: actions/upload-artifact@v2
+  #       with: 
+  #         name: assimp-libs-windows-x64
+  #         path: artifcats
 
   Build-AssImp-MacOS:
     runs-on: macos-10.15
