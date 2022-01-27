@@ -66,6 +66,9 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: '^1.17'
-      - name: Run assimp-go
+      - name: Copy dylib
         working-directory: assimp-go
         run: sudo mkdir -p /usr/local/lib && sudo cp asig/libs/libassimp_darwin_amd64.dylib /usr/local/lib/libassimp.5.dylib
+      - name: Run assimp-go
+        working-directory: assimp-go
+        run: go run .
