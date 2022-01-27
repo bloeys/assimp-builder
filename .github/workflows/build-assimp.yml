@@ -10,7 +10,7 @@ jobs:
         uses: egor-tensin/setup-cygwin@v3
         with:
           platform: x64
-          packages: cmake git gcc-g++
+          packages: cmake git
 
       - name: Set up MinGW
         uses: egor-tensin/setup-mingw@v2
@@ -24,15 +24,15 @@ jobs:
   
       - name: CMake AssImp
         shell: C:\tools\cygwin\bin\bash.exe --login -o igncr '{0}'
-        run: cd /cygdrive/d/a/assimp-builder/assimp-builder/assimp && cmake CMakeLists.txt -D ASSIMP_BUILD_ZLIB=OFF -D ASSIMP_BUILD_ASSIMP_TOOLS=OFF -G "MinGW Makefiles"
+        run: cd assimp && cmake CMakeLists.txt -D ASSIMP_BUILD_ZLIB=OFF -D ASSIMP_BUILD_ASSIMP_TOOLS=OFF -G "MinGW Makefiles"
   
       - name: Build AssImp
         shell: C:\tools\cygwin\bin\bash.exe --login -o igncr '{0}'
-        run: cd /cygdrive/d/a/assimp-builder/assimp-builder/assimp && cmake --build . --parallel 6
+        run: cd assimp && cmake --build . --parallel 2
   
       - name: Copy artifcats
         shell: C:\tools\cygwin\bin\bash.exe --login -o igncr '{0}'
-        run: cd /cygdrive/d/a/assimp-builder/assimp-builder && mkdir artifcats && cp -r ./assimp/bin artifcats/bin && cp -r ./assimp/lib artifcats/lib
+        run: mkdir artifcats && cp -r ./assimp/bin artifcats/bin && cp -r ./assimp/lib artifcats/lib
 
       - name: Upload libraries to GitHub Actions Artifacts
         uses: actions/upload-artifact@v2
@@ -50,7 +50,7 @@ jobs:
         run: cmake CMakeLists.txt -D ASSIMP_BUILD_ZLIB=OFF -D ASSIMP_BUILD_ASSIMP_TOOLS=OFF
       - name: Build AssImp
         working-directory: ./assimp
-        run: cmake --build . --parallel 6
+        run: cmake --build . --parallel 2
       - name: Upload libraries to GitHub Actions Artifacts
         uses: actions/upload-artifact@v2
         with: 
