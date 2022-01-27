@@ -24,17 +24,15 @@ jobs:
   
       - name: CMake AssImp
         shell: C:\tools\cygwin\bin\bash.exe --login -o igncr '{0}'
-        working-directory: assimp
-        run: cmake CMakeLists.txt -D ASSIMP_BUILD_ZLIB=OFF -D ASSIMP_BUILD_ASSIMP_TOOLS=OFF -G "MinGW Makefiles"
+        run: cd /cygdrive/d/a/assimp-builder/assimp-builder/assimp && cmake CMakeLists.txt -D ASSIMP_BUILD_ZLIB=OFF -D ASSIMP_BUILD_ASSIMP_TOOLS=OFF -G "MinGW Makefiles"
   
       - name: Build AssImp
         shell: C:\tools\cygwin\bin\bash.exe --login -o igncr '{0}'
-        working-directory: assimp
-        run: cmake --build . --parallel 6
+        run: cd /cygdrive/d/a/assimp-builder/assimp-builder/assimp && cmake --build . --parallel 6
   
       - name: Copy artifcats
         shell: C:\tools\cygwin\bin\bash.exe --login -o igncr '{0}'
-        run: mkdir artifcats && cp -r ./assimp/bin artifcats/bin && cp -r ./assimp/lib artifcats/lib
+        run: cd /cygdrive/d/a/assimp-builder/assimp-builder && mkdir artifcats && cp -r ./assimp/bin artifcats/bin && cp -r ./assimp/lib artifcats/lib
 
       - name: Upload libraries to GitHub Actions Artifacts
         uses: actions/upload-artifact@v2
