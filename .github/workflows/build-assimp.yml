@@ -16,7 +16,6 @@ jobs:
         uses: egor-tensin/setup-mingw@v2
         with:
           platform: x64
-          cygwin: 1
 
       - name: Clone AssImp v5.1.6
         shell: C:\tools\cygwin\bin\bash.exe --login -o igncr '{0}'
